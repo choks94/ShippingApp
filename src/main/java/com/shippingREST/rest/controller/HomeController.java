@@ -38,23 +38,19 @@ public class HomeController {
 
     @GetMapping("/getPremiumPrice")
     public double getPremiumPrice() {
-//        System.out.println("===================================" + code);
         return 13.2d;
     }
 
     @PostMapping("/saveOrder")
     public ShippingOrder saveOrder(@RequestBody ShippingOrder order) {
-        System.out.println("============================" + order);
         ShippingOrder so = orderService.saveOrder(order);
         LocalDate today = LocalDate.now();
         LocalDate estimatedDeliveryDate;
         if (order.getShippingMethod().equals("standardShipping")) {
             estimatedDeliveryDate = today.plusDays(15);
-            System.out.println("++++++++++++++++++++" + estimatedDeliveryDate);
             so.setEstimatedDeliveryDate(estimatedDeliveryDate);
         } else {
             estimatedDeliveryDate = today.plusDays(7);
-            System.out.println("++++++++++++++++++++" + estimatedDeliveryDate);
             so.setEstimatedDeliveryDate(estimatedDeliveryDate);
         }
         return so;
